@@ -7,9 +7,9 @@ ARG URL
 ENV VERSION 3.3.10
 
 # Image labels
-LABEL version=${VERSION}
+LABEL version=$VERSION
 LABEL maintainer="Captain KoLiBer koliberr136a1@gmail.com"
-LABEL description="ProcessMaker ${VERSION} Docker Image."
+LABEL description="ProcessMaker $VERSION Docker Image."
 
 # Install Nginx
 RUN apk update
