@@ -1,10 +1,10 @@
 # Base Image
-FROM alpine:3.8
+FROM alpine
 
 # Declare ENV variables
 # Declare ARGS and ENV Variables
 ARG URL
-ENV VERSION 3.3.10
+ENV VERSION 3.4.4
 
 # Image labels
 LABEL version=$VERSION
@@ -21,37 +21,37 @@ RUN curl -L -o /tmp/processmaker.tar.gz https://sourceforge.net/projects/process
 RUN tar -C /srv -xzvf /tmp/processmaker.tar.gz
 RUN rm /tmp/processmaker.tar.gz
 RUN chown -R nginx:www-data /srv/processmaker
+RUN chmod -R 777 /srv/processmaker
 
 # Install PHP
 RUN apk add \
-    php5-fpm \
-    php5-opcache \
-    php5-json \
-    php5-zlib \
-    php5-xml \
-    php5-pdo \
-    php5-phar \
-    php5-openssl \
-    php5-pdo_mysql \
-    php5-mysqli \
-    php5-mysql \
-    php5-gd \
-    php5-iconv \
-    php5-mcrypt \
-    php5-ctype \
-    php5-cli \
-    php5-curl \
-    php5-soap \
-    php5-ldap \
-    php5-dom
+    php7-fpm \
+    php7-opcache \
+    php7-json \
+    php7-zlib \
+    php7-xml \
+    php7-pdo \
+    php7-phar \
+    php7-openssl \
+    php7-pdo_mysql \
+    php7-mysqli \
+    php7-gd \
+    php7-iconv \
+    php7-mcrypt \
+    php7-ctype \
+    php7-cli \
+    php7-curl \
+    php7-soap \
+    php7-ldap \
+    php7-dom
 
 # Copy configurations
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/default.conf
-COPY php-fpm.conf /etc/php5/php-fpm.conf
+COPY php-fpm.conf /etc/php7/php-fpm.conf
 
 # Nginx Ports
 EXPOSE 80
 
 # Start php-fpm & nginx
-CMD ["/bin/sh", "-c", "sed -i 's,server_name _;,server_name '$URL';,g' /etc/nginx/conf.d/default.conf && php-fpm5 && nginx"]
+CMD ["/bin/sh", "-c", "sed -i 's,server_name _;,server_name '$URL';,g' /etc/nginx/conf.d/default.conf && php-fpm7 && nginx"]
