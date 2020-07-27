@@ -2,6 +2,8 @@
 FROM alpine:3.8
 
 # Declare ENV variables
+# Declare ARGS and ENV Variables
+ARG URL
 ENV VERSION 3.3.10
 
 # Image labels
@@ -52,4 +54,4 @@ COPY php-fpm.conf /etc/php5/php-fpm.conf
 EXPOSE 80
 
 # Start php-fpm & nginx
-CMD ["/bin/sh", "-c", "php-fpm5 && nginx"]
+CMD ["/bin/sh", "-c", "sed -i 's,server_name _;,server_name '$URL';,g' /etc/nginx/conf.d/default.conf && php-fpm5 && nginx"]
