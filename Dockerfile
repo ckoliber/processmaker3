@@ -4,7 +4,7 @@ FROM alpine
 # Declare ENV variables
 # Declare ARGS and ENV Variables
 ARG URL
-ENV VERSION 3.4.4
+ENV VERSION 3.4.2
 
 # Image labels
 LABEL version=$VERSION
@@ -17,10 +17,10 @@ RUN apk add curl nginx
 RUN mkdir -p /run/nginx
 
 # Install ProcessMaker
-RUN curl -L -o /tmp/processmaker.tar.gz https://sourceforge.net/projects/processmaker/files/ProcessMaker/$VERSION/processmaker-$VERSION-community.tar.gz
+RUN curl -L -o /tmp/processmaker.tar.gz https://artifacts.processmaker.net/official/processmaker-$VERSION-community.tar.gz
 RUN tar -C /srv -xzvf /tmp/processmaker.tar.gz
 RUN rm /tmp/processmaker.tar.gz
-RUN chown -R nginx:www-data /srv/processmaker
+RUN chown -R nginx:nginx /srv/processmaker
 RUN chmod -R 777 /srv/processmaker
 
 # Install PHP
@@ -35,6 +35,7 @@ RUN apk add \
     php7-openssl \
     php7-pdo_mysql \
     php7-mysqli \
+    php-mbstring \
     php7-gd \
     php7-iconv \
     php7-mcrypt \
