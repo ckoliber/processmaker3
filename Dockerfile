@@ -22,6 +22,7 @@ RUN tar -C /srv -xzvf /tmp/processmaker.tar.gz
 RUN rm /tmp/processmaker.tar.gz
 RUN chown -R nginx:nginx /srv/processmaker
 RUN chmod -R 777 /srv/processmaker
+WORKDIR /srv/processmaker
 
 # Install PHP
 RUN yum install -y \
