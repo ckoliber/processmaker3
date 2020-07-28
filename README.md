@@ -1,6 +1,6 @@
 # ProcessMaker Community Edition
 
-**ProcessMaker-CE** latest version, docker image based on **Alpine**, **Nginx**, **PHP-FPM**
+**ProcessMaker-CE** latest version, docker image based on **Nginx**, **PHP-FPM**
 
 ---
 
