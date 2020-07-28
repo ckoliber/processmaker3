@@ -4,7 +4,7 @@ FROM amazonlinux:2018.03
 # Declare ENV variables
 # Declare ARGS and ENV Variables
 ARG URL
-ENV VERSION 3.4.4
+ENV VERSION 3.4.11
 
 # Image labels
 LABEL version=$VERSION
