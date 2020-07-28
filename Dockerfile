@@ -25,6 +25,7 @@ RUN chmod -R 777 /srv/processmaker
 
 # Install PHP
 RUN yum install -y \
+    sendmail \
     php71-fpm \
     php71-opcache \
     php71-gd \
