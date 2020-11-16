@@ -1,5 +1,5 @@
 # Base Image
-FROM amazonlinux:2018.03
+FROM alpine:3.8
 
 # Declare ARGS and ENV Variables
 ENV VERSION 3.4.11
@@ -9,9 +9,29 @@ LABEL version=$VERSION
 LABEL maintainer="Captain KoLiBer koliberr136a1@gmail.com"
 LABEL description="ProcessMaker $VERSION Docker Image."
 
-# Install Nginx
-RUN yum clean all
-RUN yum install -y curl nginx
+# Install dependencies
+RUN apk add bash curl curl-dev openldap-dev tzdata nginx ca-certificates freetds \
+    php5-fpm \
+    php5-opcache \
+    php5-json \
+    php5-zlib \
+    php5-xml \
+    php5-pdo \
+    php5-phar \
+    php5-openssl \
+    php5-pdo_mysql \
+    php5-mysqli \
+    php5-mysql \
+    php5-gd \
+    php5-iconv \
+    php5-mcrypt \
+    php5-ctype \
+    php5-cli \
+    php5-curl \
+    php5-soap \
+    php5-ldap \
+    php5-dom
+RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
 RUN mkdir -p /run/nginx
 
 # Install ProcessMaker
@@ -22,26 +42,13 @@ RUN chown -R nginx:nginx /srv/processmaker
 RUN chmod -R 777 /srv/processmaker
 WORKDIR /srv/processmaker
 
-# Install PHP
-RUN yum install -y \
-    mysql \
-    sendmail \
-    php71-fpm \
-    php71-opcache \
-    php71-gd \
-    php71-mysqlnd \
-    php71-soap \
-    php71-mbstring \
-    php71-ldap \
-    php71-mcrypt
-
 # Copy configurations
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/default.conf
-COPY php-fpm.conf /etc/php-fpm.conf
+COPY php-fpm.conf /etc/php5/php-fpm.conf
 
 # Nginx Ports
 EXPOSE 80
 
-# Start php-fpm & nginx
-CMD ["/bin/sh", "-c", "php-fpm && nginx"]
+# Start crond & php-fpm & nginx
+CMD ["/bin/sh", "-c", "crond && php-fpm5 && nginx"]
