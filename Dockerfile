@@ -1,9 +1,7 @@
 # Base Image
 FROM amazonlinux:2018.03
 
-# Declare ENV variables
 # Declare ARGS and ENV Variables
-ARG URL
 ENV VERSION 3.4.11
 
 # Image labels
@@ -46,4 +44,4 @@ COPY php-fpm.conf /etc/php-fpm.conf
 EXPOSE 80
 
 # Start php-fpm & nginx
-CMD ["/bin/sh", "-c", "sed -i 's,server_name _;,server_name '$URL';,g' /etc/nginx/conf.d/default.conf && php-fpm && nginx"]
+CMD ["/bin/sh", "-c", "php-fpm && nginx"]

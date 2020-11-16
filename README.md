@@ -9,7 +9,7 @@
 You can run this image using `docker run` command:
 
 ```bash
-docker run --rm -it -p 8000:80 -e URL=localhost:8000 koliber/processmaker
+docker run --rm -it -p 8000:80 koliber/processmaker
 ```
 
 Or you can run by `docker-compose`:
@@ -27,8 +27,6 @@ services:
         image: koliber/processmaker
         ports:
             - 8000:80
-        environment:
-            URL: localhost:11002
         restart: always
         depends_on:
             - database
