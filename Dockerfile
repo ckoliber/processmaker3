@@ -11,7 +11,7 @@ LABEL description="ProcessMaker $VERSION Docker Image."
 
 # Install dependencies
 RUN yum clean all
-RUN yum install -y curl nginx mysql-client \
+RUN yum install -y curl nginx mysql \
     sendmail \
     php71-fpm \
     php71-opcache \
