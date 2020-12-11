@@ -2,7 +2,7 @@
 FROM amazonlinux:2018.03
 
 # Declare ARGS and ENV Variables
-ENV VERSION 3.4.11
+ENV VERSION 3.5.4
 
 # Image labels
 LABEL version=$VERSION
@@ -32,6 +32,7 @@ RUN chmod -R 777 /srv/processmaker
 WORKDIR /srv/processmaker
 
 # Copy configurations
+RUN sed -i 's/memory_limit = .*/memory_limit = 512M/' /etc/php.ini
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY php-fpm.conf /etc/php-fpm.conf

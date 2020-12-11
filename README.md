@@ -4,7 +4,17 @@
 
 ---
 
-## Example
+## Building
+
+For building this image, run this command:
+
+```bash
+docker build --build-arg http_proxy={YOUR PROXY SERVER} --build-arg https_proxy={YOUR PROXY SERVER} -t {IMAGE NAME} .
+```
+
+---
+
+## Usage
 
 You can run this image using `docker run` command:
 
