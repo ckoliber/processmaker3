@@ -37,6 +37,10 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY php-fpm.conf /etc/php-fpm.conf
 
+# Hotfix ProcessMaker InputDocuemnt upload, download bug
+RUN sed -i 's/ob_end_clean();/if (ob_get_contents()) ob_end_clean();/' /srv/processmaker/workflow/engine/src/ProcessMaker/BusinessModel/Cases/InputDocument.php
+RUN sed -i 's/if ($flagps == false)/if ($flagps == false \&\& $arrayApplicationData["APP_CUR_USER"] != $userUid)/' /srv/processmaker/workflow/engine/src/ProcessMaker/BusinessModel/Cases/InputDocument.php
+
 # Nginx Ports
 EXPOSE 80
 
