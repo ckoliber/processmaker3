@@ -30,6 +30,8 @@ services:
     database:
         image: mysql:5.6
         command: --default-authentication-plugin=mysql_native_password --lower_case_table_names=1 --character-set-server=utf8 --collation-server=utf8_general_ci
+        volumes:
+            - database:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: root
         restart: always
@@ -37,6 +39,8 @@ services:
         image: koliber/processmaker
         ports:
             - 8000:80
+        volumes:
+            - processmaker:/srv/processmaker/shared/sites/workflow
         restart: always
         depends_on:
             - database
