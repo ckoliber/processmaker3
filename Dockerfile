@@ -27,8 +27,6 @@ RUN mkdir -p /run/nginx
 RUN curl -L -o /tmp/processmaker.tar.gz https://artifacts.processmaker.net/official/processmaker-$VERSION-community.tar.gz
 RUN tar -C /srv -xzvf /tmp/processmaker.tar.gz
 RUN rm /tmp/processmaker.tar.gz
-RUN chown -R nginx:nginx /srv/processmaker
-RUN chmod -R 777 /srv/processmaker
 WORKDIR /srv/processmaker
 
 # Copy configurations
@@ -45,4 +43,4 @@ RUN sed -i 's/if ($flagps == false)/if ($flagps == false \&\& $arrayApplicationD
 EXPOSE 80
 
 # Start crond & php-fpm & nginx
-CMD ["/bin/sh", "-c", "php-fpm && nginx"]
+CMD php-fpm -R && nginx
